@@ -27,7 +27,7 @@ Bugs are tracked on `GitHub Issues
 
 ## Contributors
 
-* Armando Robert Lobo <arobertlobo5@gmail.com> https://www.linkedin.com/company/soltein
+* Armando Robert Lobo <arobertlobo5@gmail.com> [(https://www.linkedin.com/company/soltein)](https://www.linkedin.com/company/soltein)
 
 Do not contact contributors directly about support or help with technical issues.
 

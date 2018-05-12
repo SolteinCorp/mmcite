@@ -27,7 +27,7 @@ Bugs are tracked on `GitHub Issues
 
 ## Contributors
 
-* Armando Robert Lobo <arobertlobo5@gmail.com> [(https://www.linkedin.com/company/soltein)](https://www.linkedin.com/company/soltein)
+* Armando Robert Lobo <<arobertlobo5@gmail.com>> ([SOLTEIN SA. de CV.](http://www.soltein.net))
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -35,9 +35,8 @@ Do not contact contributors directly about support or help with technical issues
 
 The development of this module has been financially supported by:
 
-* Company 1 name
-* Company 2 name
+
 
 ## Maintainer
 
-[SOLTEIN SA. de CV.]: https://soltein.net/web/image/res.company/1/logo?unique=84eb0ed "SOLTEIN SA. de CV."
+[![SOLTEIN SA. de CV.](https://www.soltein.net/web/image/res.company/1/logo?unique=84eb0ed&width=100)](http://www.soltein.net)

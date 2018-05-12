@@ -35,8 +35,6 @@ Do not contact contributors directly about support or help with technical issues
 
 The development of this module has been financially supported by:
 
-
-
 ## Maintainer
 
 [![SOLTEIN SA. de CV.](https://www.soltein.net/web/image/res.company/1/logo?unique=84eb0ed&width=100)](http://www.soltein.net)

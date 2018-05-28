@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="res.users" id="base.public_user">
+        <field eval="[(4,ref('website_sale.group_website_multi_image'))]" name="groups_id"/>
+    </record>
+
+    <record model="res.users" id="base.user_root">
+        <field eval="[(4,ref('website_sale.group_website_multi_image'))]" name="groups_id"/>
+    </record>
+
+    <record model="res.users" id="base.user_root">
+        <field eval="[(4,ref('product.group_product_variant'))]" name="groups_id"/>
+    </record>
+</odoo>

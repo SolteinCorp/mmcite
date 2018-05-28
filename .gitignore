@@ -1,0 +1,7 @@
+*.pyc
+
+# IDE workspace configurations 
+.vscode
+.vscode/*
+odoo-server.cfg
+__pycache__

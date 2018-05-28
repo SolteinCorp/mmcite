@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//t[@t-foreach='doc.order_lines_layouted()']/table/thead/tr/th[1]" position="before">
+            <th/>
+        </xpath>
+        <xpath expr="//t[@t-foreach='doc.order_lines_layouted()']/table/tbody/t[@t-foreach='page']/t[@t-as='l']/tr/td[1]" position="before">
+            <!-- <td><span t-esc="'IMAGE HERE! %s' % l.product_id"></span></td> -->
+            <td><div t-field="l.product_id.image_small" t-options='{"widget": "image"}'/></td>
+        </xpath>
+    </template>
+</odoo>

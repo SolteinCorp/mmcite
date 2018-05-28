@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- assets -->
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Products">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/website_sale_basket_crm/static/src/css/website_sale_basket_crm.css"/>
+            <script type="text/javascript" src="/website_sale_basket_crm/static/src/lib/jquery-validate/jquery.validate.js"></script>
+            <script type="text/javascript" src="/website_sale_basket_crm/static/src/lib/jquery-validate/additional-methods.js"></script>
+        </xpath>
+    </template>
+    <template id="assets_frontend_website_sale_options" inherit_id="website_sale_options.assets_frontend" name="Products">
+        <xpath expr="//script[@src='/website_sale_options/static/src/js/website_sale.js']" position="replace">
+            <script type="text/javascript" src="/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js"></script>
+        </xpath>
+    </template>
+    <!-- my own features-->
+    <template id="breadcrumb">
+        <ol class="breadcrumb">
+            <li>
+                <a t-if="category" href="/products">Products</a>
+                <span t-else="">Products</span>
+            </li>
+            <t t-if="category">
+                <li t-foreach="parent_categories" t-as="category_item">
+                    <a t-attf-href="{{ keep('/products/category/' + slug(category_item)) }}" t-field="category_item.name" />
+                </li>
+                <li t-if="product" class="active">
+                    <span t-field="product.name" />
+                </li>
+                <li t-if="not product" class="active">
+                    <span t-field="category.name" />
+                </li>
+            </t>
+        </ol>
+    </template>
+
+    <template id="related_products" inherit_id="website_sale.product" customize_show="True" name="Related Products" active="True">
+        <xpath expr="//div[@id='product_full_description']" position="after">
+            <div class="container mt32" t-if="product.related_product_ids">
+                <h3>Related Products:</h3>
+                <div class="row mt16" style="">
+                    <t t-foreach="product.related_product_ids" t-as="alt_product">
+                        <div class="col-md-2 thumbnail" style="width: 170px; height:130px; float:left; display:inline; margin-right: 10px; overflow:hidden;">
+                            <div class="mt16 text-center" style="height: 100%;">
+                                <div t-field="alt_product.image_small" t-options="{'widget': 'image', 'class': 'img-rounded shadow o_alternative_product' }" />
+                                <h5>
+                                    <a t-attf-href="{{'/products/product/' if is_sale_basket_crm else '/shop/product/'}}#{ slug(alt_product) }" style="display: block">
+                                        <span t-att-title="alt_product.name" t-field="alt_product.name" class="o_text_overflow" style="display: block;" />
+                                    </a>
+                                </h5>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+    <!-- improvement customizers -->
+    <template id="categories_navigation" inherit_id="website_sale.products" active="True" customize_show="True" name="Navigate Categories">
+        <xpath expr="//div[hasclass('products_pager')]" position="before">
+            <!-- Impruve page main title -->
+            <div t-if="is_sale_basket_crm" class="row">
+                <div class="col-md-12">
+                    <h3 t-if="category" t-esc="category.name"/>
+                    <h3 t-else="">Products</h3>
+                </div>
+            </div>
+            <!-- Improve custom category and product breadcrumb -->
+            <div t-if="is_sale_basket_crm and category" class="row">
+                <div class="col-md-12">
+                    <t t-call="website_sale_basket_crm.breadcrumb"/>
+                </div>
+            </div>
+            <!-- Category Navigation -->
+            <div t-if="is_sale_basket_crm" class="row">
+                <t t-if="category">
+                    <t t-set="category_list" t-value="category.child_id"/></t>
+                <t t-else="">
+                    <t t-set="category_list" t-value="categories"/></t>
+                <div class="col-xs-12 col-sm-6 col-md-3" t-foreach="category_list" t-as="category_item">
+                    <a t-attf-href="{{keep('/products/category/' + slug(category_item))}}">
+                        <div class="card" style="width: 100%;">
+                            <div t-field="category_item.image" t-options="{'widget': 'image', 'class': 'card-img-top card-height-limited' }"/>
+                            <div class="card-footer text-center">
+                                <strong t-esc="category_item.name"></strong>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[hasclass('products_pager')]" position="attributes">
+            <attribute name="t-att-class">'products_pager' if products.exists() else 'hide-element'</attribute>
+        </xpath>
+
+        <xpath expr="//div[hasclass('products_pager')]/div" position="attributes">
+            <attribute name="t-if">not is_sale_basket_crm or (is_sale_basket_crm and not products.exists())</attribute>
+        </xpath>
+
+        <xpath expr="//div[@id='products_grid']/t[@t-if='not bins']/div" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-att-class">'hide-element' if not bins and not category else 'text-center text-muted oe_product'</attribute>
+        </xpath>
+    </template>
+    <!-- functional overrides -->
+    <template id="header" inherit_id="website_sale.header" name="Header Products My Cart Link">
+        <xpath expr="//li[@id='my_cart']/a[@href='/shop/cart']" position="attributes">
+            <attribute name="t-if">not is_sale_basket_crm</attribute>
+        </xpath>
+        <xpath expr="//li[@id='my_cart']/a[@href='/shop/cart']" position="before">
+            <a t-if="is_sale_basket_crm" href="/products/cart">
+                <i class="fa fa-shopping-cart"></i> My Basket
+                <sup t-attf-class="my_cart_quantity label label-primary" t-esc="website_sale_order and website_sale_order.cart_quantity or ''" />
+            </a>
+        </xpath>
+    </template>
+    <template id="404" inherit_id="website_sale.404">
+        <xpath expr="//a[@t-attf-href='/shop']" position="before">
+            <a t-if="is_sale_basket_crm" t-attf-href="/products">Return to the product list.</a>
+        </xpath>
+        <xpath expr="//a[@t-attf-href='/shop']" position="attributes">
+            <attribute name="t-else"></attribute>
+        </xpath>
+    </template>
+    <template id="products_item" inherit_id="website_sale.products_item" name="Products item">
+        <!-- Redirect URL -->
+        <xpath expr="form" position="attributes">
+            <attribute name="action"/>
+            <attribute name="t-attf-action">{{ '/shop/cart/update' if not is_sale_basket_crm else '/products/cart/update'}}</attribute>
+        </xpath>
+
+        <!-- Redirect URL -->
+        <xpath expr="//a[@t-field='product.name']" position="attributes">
+            <attribute name="t-att-href"/>
+            <attribute name="t-attf-href">{{keep(('/shop/product/' if not is_sale_basket_crm else '/products/product/') + slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))}}</attribute>
+        </xpath>
+
+        <!-- Redirect URL -->
+        <xpath expr="//div[hasclass('oe_product_image')]/a[@itemprop='url']" position="attributes">
+            <attribute name="t-att-href"/>
+            <attribute name="t-attf-href">{{keep(('/shop/product/' if not is_sale_basket_crm else '/products/product/') + slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))}}</attribute>
+        </xpath>
+
+        <!-- Hide Prices -->
+        <xpath expr="//span[@t-esc='product.website_price']|//span[@t-esc='website.currency_id.name']" position="attributes">
+            <attribute name="t-if">not is_sale_basket_crm</attribute>
+        </xpath>
+    </template>
+    <template id="product" inherit_id="website_sale.product" name="Product">
+        <!-- Redirect URL -->
+        <xpath expr="//form[hasclass('js_add_cart_variants')]" position="attributes">
+            <attribute name="action"/>
+            <attribute name="t-attf-action">{{ '/shop/cart/update' if not is_sale_basket_crm else '/products/cart/update'}}</attribute>
+        </xpath>
+        <!-- Hide internal template breadcrumb -->
+        <xpath expr="//section[@id='product_detail']/div[hasclass('row')]/div[ol[hasclass('breadcrumb')]]" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-attf-class">{{ 'col-sm-4 hide-element' if is_sale_basket_crm else 'col-sm-4'}}</attribute>
+        </xpath>
+        <!-- Show main title and global breadcrumb -->
+        <xpath expr="//section[@id='product_detail']/div[hasclass('row') and div[ol[hasclass('breadcrumb')]]]" position="before">
+            <div t-if="is_sale_basket_crm and product" class="row">
+                <div class="col-md-12">
+                    <h3 t-if="product" t-esc="additional_title"/>
+                </div>
+            </div>
+            <div t-if="is_sale_basket_crm" class="row">
+                <div class="col-md-12">
+                    <t t-call="website_sale_basket_crm.breadcrumb"/>
+                </div>
+            </div>
+        </xpath>
+        <!-- Hide standart title -->
+        <xpath expr="//div[@id='product_details']/h1[@t-field='product.name']" position="attributes">
+            <attribute name="t-if">not is_sale_basket_crm</attribute>
+        </xpath>
+        <!-- Add new title -->
+        <xpath expr="//div[@id='product_details']/span[@itemprop='url']" position="before">
+            <h1 t-if="len(product.product_variant_ids) &gt; 1">Variant List</h1>
+        </xpath>
+        <!-- Hide search -->
+        <xpath expr="//section[@id='product_detail']/div[hasclass('row')]/div[t[@t-call='website_sale.search']]" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-attf-class">{{ 'col-sm-3 mb8 hide-element' if is_sale_basket_crm else 'col-sm-3 mb8'}}</attribute>
+        </xpath>
+        <!-- Remove prices references (see product_price -template-)-->
+        <xpath expr="//section[@id='product_detail']/div/div[t[@t-call='website_sale.pricelist_list']]" position="attributes">
+            <attribute name="class" />
+            <attribute name="t-attf-class">{{ 'col-sm-2 text-right hide-element' if is_sale_basket_crm else 'col-sm-2 text-right'}}</attribute>
+        </xpath>
+        <!-- Rename basket button -->
+        <xpath expr="//a[@id='add_to_cart']" position="replace">
+            <a id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product a-submit" t-att-data-is-sale-basket-crm="1 if is_sale_basket_crm else 0" href="#">
+                <!-- TODO: Problemas con la traducción.
+                <t t-if="is_sale_basket_crm" t-raw="_('Quote')"/>
+                -->
+                <t t-if="is_sale_basket_crm" t-raw="'Cotizar'"/>
+                <t t-else="" t-raw="'Add to Cart'"/>
+            </a>
+        </xpath>
+        <!-- No muted text -->
+        <xpath expr="//p[@t-field='product.description_sale']" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-att-class">'' if is_sale_basket_crm else 'text-muted'</attribute>
+        </xpath>
+        <!-- Remove Extrange paragraph -->
+        <xpath expr="//div[p[@t-field='product.description_sale']]/following-sibling::hr/following-sibling::p" position="attributes">
+            <attribute name="t-if">not is_sale_basket_crm</attribute>
+        </xpath>    
+        <xpath expr="//div[@id='o-carousel-product']" position="before">
+            <t t-if="is_sale_basket_crm">
+                <t t-set="variant_img" t-value="0"/>
+            </t>            
+        </xpath>   
+    </template>
+
+    <!-- Remove prices in modal -->
+    <template id="modal" inherit_id="website_sale_options.modal">
+        <!-- Change modal title -->
+        <!--<xpath expr="//h4[@id='myModalLabel']" position="replace">
+            <h4 class="modal-title" id="myModalLabel">
+                <t t-raw="_('Add to Basket') if is_sale_basket_crm else 'Add to Cart'"/>
+                
+                <t t-raw="_('Add to Basket') if is_sale_basket_crm else 'Add to Cart'"/>
+            </h4>
+        </xpath>-->
+        <!-- Hide products prices in modal and fix division by 0-->
+        <xpath expr="//table/thead/tr/th[hasclass('td-price')]" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-att-class">'hide-element' if is_sale_basket_crm else 'text-center td-price'</attribute>
+        </xpath>
+        <xpath expr="//table/tbody/tr[hasclass('js_product')]/td[hasclass('td-price')]" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-att-class">'hide-element' if is_sale_basket_crm else 'text-center td-price'</attribute>
+        </xpath>
+        <xpath expr="//span[@t-esc='product.website_price / quantity']" position="attributes">
+            <attribute name="t-esc">(product.website_price / quantity) if not is_sale_basket_crm else 0</attribute>
+        </xpath>
+        <!-- Hide prices of optional products -->
+        <xpath expr="//tr[@t-foreach='product.optional_product_ids']/td[hasclass('td-price')]/span[@t-field='product.lst_price']" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-att-class">'hide-element' if is_sale_basket_crm else 'text-danger oe_default_price oe_optional'</attribute>
+        </xpath>
+        <xpath expr="//tr[@t-foreach='product.optional_product_ids']/td[hasclass('td-price')]/span[@t-field='product.website_price']" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-att-class">'hide-element' if is_sale_basket_crm else 'oe_price'</attribute>
+        </xpath>
+        <!-- Show all products variants to quote -->
+        <xpath expr="//tr[@id='product_confirmation']" position="after">            
+            <t t-if="is_sale_basket_crm">
+                <input type="hidden" name="is_sale_basket_crm" t-att-value="is_sale_basket_crm"/>
+                <tr t-foreach="products" t-as="product_item" class="js_product">
+                    <td class='td-img'>
+                        <span t-field="product_item['product'].image_medium" t-options='{"widget": "image" }'/>
+                    </td>
+                    <td class='td-product_name'>
+                        <strong t-field="product_item['product'].display_name"/>
+                        <div class="text-muted small">
+                            <div t-field="product_item['product'].description_sale"/>
+                            <div class="js_attributes"/></div>
+                    </td>
+                    <td class="text-center td-qty">
+                        <div class="css_quantity input-group oe_website_spinner">
+                            <a t-attf-href="#" class="mb8 input-group-addon js_add_cart_json hidden-xs">
+                                <i class="fa fa-minus"></i>
+                            </a>
+                            <input type="text" class="js_quantity form-control quantity" data-min="0" t-attf-name="add_qty_{{product_item['product_id']}}" value="0"/>
+                            <a t-attf-href="#" class="mb8 input-group-addon float_left js_add_cart_json hidden-xs">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </td>
+                    <td class="hide-element"/>
+                </tr>
+            </t>
+        </xpath>
+        <!-- Fix buttons labels -->
+        <xpath expr="//div[hasclass('modal-footer')]/a[1]" position="replace">
+            <!--
+            TODO: Problemas con la internalización i18n 
+            <a class="btn btn-default a-submit js_goto_shop"><i class="fa fa-chevron-left"></i><span class="hidden-xs"> <t t-raw="_('Continue Quotation') if is_sale_basket_crm else 'Continue Shopping'"/></span><span class="visible-xs-inline">Continue</span></a>
+            -->
+            <a class="btn btn-default a-submit js_goto_shop"><i class="fa fa-chevron-left"></i><span class="hidden-xs"> <t t-raw="'Continuar Cotizando' if is_sale_basket_crm else 'Continue Shopping'"/></span><span class="visible-xs-inline">Continue</span></a>
+        </xpath>
+        <xpath expr="//div[hasclass('modal-footer')]/a[2]" position="replace">
+            <!--
+            TODO: Problemas con la internalización i18n 
+            <a class="btn btn-primary pull-right a-submit"><i class="fa fa-shopping-cart fa-fw"></i><span class="hidden-xs"> <t t-raw="_('Proceed to Quote') if is_sale_basket_crm else 'Proceed to Checkout'"/></span><span class="visible-xs-inline"><t t-raw="_('Quoute') if is_sale_basket_crm else 'Checkout'"/></span></a>
+            -->
+            <a class="btn btn-primary pull-right a-submit"><i class="fa fa-shopping-cart fa-fw"></i><span class="hidden-xs"> <t t-raw="'Enviar Cotización' if is_sale_basket_crm else 'Proceed to Checkout'"/></span><span class="visible-xs-inline"><t t-raw="'Cotizar' if is_sale_basket_crm else 'Checkout'"/></span></a>
+        </xpath>
+        <!-- Hide main primary product in sale mode -->
+        <xpath expr="//tr[@id='product_confirmation']" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-att-class">'js_product hide-element' if is_sale_basket_crm else 'js_product'</attribute>
+        </xpath>
+    </template>
+
+    <!-- Fix variants lists -->
+    <record id="website_sale.product_variants" model="ir.ui.view">
+        <field name="active" eval="True"/>
+        <!-- Enable use List View of Variants-->
+    </record>
+
+    <template id="variants" inherit_id="website_sale.variants">
+        <!-- Hide prices in variant list -->
+        <xpath expr="//option[@t-att-value='value_id.id']/span[@t-if='value_id.price_extra']" position="attributes">
+            <attribute name="t-att-class">'hide-element' if is_sale_basket_crm else ''</attribute>
+        </xpath>
+        <xpath expr="//label/span[@t-if='value_id.price_extra']" position="attributes">
+            <attribute name="t-att-class">'hide-element' if is_sale_basket_crm else 'badge'</attribute>
+        </xpath>
+
+        <!-- Hide variant selection mode -->
+        <xpath expr="//input[@type='radio']" position="attributes">
+            <attribute name="t-att-class"/>
+            <attribute name="t-attf-class">{{('js_variant_change hide-element' if variant_id.attribute_id.create_variant else 'hide-element') if is_sale_basket_crm else ('js_variant_change' if variant_id.attribute_id.create_variant else None)}}</attribute>
+        </xpath>
+    </template>
+    <template id="product_variants" inherit_id="website_sale.product_variants">
+        <!-- Hide variant selection mode -->
+        <xpath expr="//input[@type='radio']" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-attf-class">{{'js_product_change hide-element' if is_sale_basket_crm else 'js_product_change'}}</attribute>
+        </xpath>
+        <!-- Hide prices in variant list -->
+        <xpath expr="//span[span[@t-esc='abs(diff_price)']]" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-attf-class">{{'hide-element' if is_sale_basket_crm else 'badge'}}</attribute>
+        </xpath>
+    </template>
+
+    <!-- Fix in product icon basket view -->
+    <record id="website_sale_options.products_add_to_cart" model="ir.ui.view">
+        <field name="arch_db" type="xml">
+            <data inherit_id="website_sale.products_add_to_cart">
+                <!--
+                    The template website_sale_options.products_add_to_cart make after changes
+                    with alter own solution. Fix in next.
+                 -->
+            </data>
+        </field>
+    </record>
+
+    <!-- Changes supplies in add to cart button in products list. -->
+    <record id="website_sale.products_add_to_cart" model="ir.ui.view">
+        <field name="arch_db" type="xml">
+            <data inherit_id="website_sale.products_item" active="False" customize_show="True" name="Add to Cart">
+                <xpath expr="//div[hasclass('product_price')]" position="inside">
+                    <input name="product_id" t-att-value="product.product_variant_id.id" type="hidden"/>
+                    <t t-if="is_sale_basket_crm">
+                        <a t-att-data-is-sale-basket-crm="1" class="btn btn-default btn-xs a-submit">
+                            <span class="fa fa-shopping-cart"/>
+                        </a>
+                    </t>
+                    <t t-if="not is_sale_basket_crm">
+                        <t t-if="len(product.product_variant_ids) == 1 and not len(product.optional_product_ids) &gt;= 1">
+                            <a class="btn btn-default btn-xs a-submit">
+                                <span class="fa fa-shopping-cart" />
+                            </a>
+                        </t>
+                        <t t-if="len(product.product_variant_ids) &gt; 1 or len(product.optional_product_ids) &gt;= 1">
+                            <a class="btn btn-default btn-xs" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))">
+                                <span class="fa fa-shopping-cart" />
+                            </a>
+                        </t>
+                    </t>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <!-- No muted text -->
+    <template id="product_attributes" inherit_id="website_sale.product">
+        <xpath expr="//p[@id='product_attributes_simple']" position="attributes">
+            <attribute name="class"/>
+        </xpath>
+    </template>
+
+    <!-- Remove prices references -->
+    <template id="product_price" inherit_id="website_sale.product_price">
+        <xpath expr="//div[hasclass('product_price')]" position="attributes">
+            <attribute name="t-attf-class">{{'product_price mt16' if not is_sale_basket_crm else 'hide-element'}}</attribute>
+        </xpath>
+    </template>
+
+    <!-- Redirect URL -->
+    <template id="recommended_products" inherit_id="website_sale.recommended_products">
+        <xpath expr="//div[@t-field='alt_product.image_small']/following-sibling::h5/a[1]" position="attributes">
+            <attribute name="t-attf-href">{{ '/shop/product/' + slug(alt_product) if not is_sale_basket_crm else '/products/product/' + slug(alt_product)}}</attribute>
+        </xpath>
+    </template>
+
+    <!-- Modify Cart Page -->
+    <template id="wizard_checkout" inherit_id="website_sale.wizard_checkout">
+        <!-- First step changes -->
+        <xpath expr="//ul/li[@id='step10']/a" position="attributes">
+            <attribute name="t-att-href">step_review_order and ('/products/cart' if is_sale_basket_crm else '/shop/cart') or '#'</attribute>
+        </xpath>
+        <xpath expr="//ul/li[@id='step10']/a/span" position="replace">
+            <!-- 
+            TODO: Problemas con la internalización i18n
+            <span t-raw="_('Review Quotation') if is_sale_basket_crm else 'Review Order'"/>
+            -->
+            <span t-raw="'Revisar Cotización' if is_sale_basket_crm else 'Review Order'"/>
+        </xpath>
+        <!-- Second step changes -->
+        <xpath expr="//ul/li[@id='step20']" position="attributes">
+            <attribute name="t-att-class">'hide-element' if is_sale_basket_crm else (step==20 and 'text-primary') or 'text-muted'</attribute>
+        </xpath>
+        <!-- Third step changes -->
+        <xpath expr="//ul/li[@id='step40']" position="attributes">
+            <attribute name="t-att-class">'hide-element' if is_sale_basket_crm else (step==40 and 'text-primary') or 'text-muted'</attribute>
+        </xpath>
+    </template>
+
+    <!-- Car popover -->
+    <template id="cart_popover" inherit_id="website_sale.cart_popover">
+        <xpath expr="//div[hasclass('cart_line')]/div[2]" position="replace">
+            <div class="col-xs-9">
+                <a t-attf-href="{{'/products/product/' if is_sale_basket_crm else '/shop/product/#'}}{{ slug(line.product_id.product_tmpl_id) }}">
+                    <span t-esc="line.product_id.with_context(display_default_code=False).display_name" class="h6" />
+                </a>
+                <br />
+                <small>Qty: <t t-esc="int(line.product_uom_qty) == line.product_uom_qty and int(line.product_uom_qty) or line.product_uom_qty" /></small>
+            </div>
+        </xpath>
+       <xpath expr="//a[@href='/shop/cart']" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-att-class">'hide-element' if is_sale_basket_crm else 'btn btn-primary'</attribute>
+        </xpath>
+        <xpath expr="//a[@href='/shop/cart']" position="after">
+            <a t-if="is_sale_basket_crm" class="btn btn-primary" href="/products/cart">
+                View Basket (<t t-esc="website_sale_order.cart_quantity" /> items)
+            </a>
+        </xpath>
+    </template>
+
+    <!-- Hide total summary -->
+    <template id="total" inherit_id="website_sale.total">
+        <xpath expr="//div[@id='cart_total']" position="attributes">
+            <attribute name="t-if">not is_sale_basket_crm and (website_sale_order and website_sale_order.website_order_line)</attribute>
+        </xpath>
+    </template>
+
+    <template id="cart_lines" inherit_id="website_sale.cart_lines">
+        <!-- Hide prices options -->
+        <xpath expr="//th[hasclass('td-price')]" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-att-class">'hide-element' if is_sale_basket_crm else 'text-center td-price'</attribute>
+        </xpath>
+        <xpath expr="//td[@name='price']" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-att-class">'hide-element' if is_sale_basket_crm else 'text-center td-price'</attribute>
+        </xpath>
+
+        <!-- Change URL -->
+        <xpath expr="//td[hasclass('td-product_name')]/div/a" position="attributes">
+            <attribute name="t-attf-href">{{'/products/product/' if is_sale_basket_crm else '/shop/product/'}}#{ slug(line.product_id.product_tmpl_id) }</attribute>
+        </xpath>
+
+        <!-- Mark element -->
+        <xpath expr="//td[hasclass('td-qty')]/div/input" position="attributes">
+            <attribute name="t-att-data-is-sale-basket-crm">1 if is_sale_basket_crm else 0</attribute>
+        </xpath>
+    </template>
+    <template id="cart" inherit_id="website_sale.cart">
+        <xpath expr="//a[@href='/shop/checkout']" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-att-class">'hide-element' if is_sale_basket_crm else 'btn btn-primary pull-right mb32 mr8'</attribute>
+        </xpath>        
+    </template>
+    <template id="continue_shopping" inherit_id="website_sale.continue_shopping">
+        <xpath expr="//a[@href='/shop']" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-att-class">'hide-element' if is_sale_basket_crm else 'btn btn-default mb32'</attribute>
+        </xpath>        
+        <xpath expr="//a[@href='/shop']" position="before">
+            <a t-if="is_sale_basket_crm" href="/products" class="btn btn-default mb32">
+                <span class="fa fa-long-arrow-left" />
+                <span class="hidden-xs">Continue Quotation</span>
+                <span class="visible-xs-inline">Continue</span>
+            </a>
+        </xpath>
+        <xpath expr="//a[@href='/products']" position="after">
+            <a t-if="not optional_products and website_sale_order and website_sale_order.website_order_line" class="btn btn-primary pull-right mb32 mr8" href="/products/partner">
+                <span class="hidden-xs">Record Quotation</span>
+                <span class="visible-xs-inline">Next</span>
+                <span class="fa fa-long-arrow-right" />
+            </a>
+        </xpath>
+    </template>
+
+    <template id="partner" name="Partner">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="row">
+                                <t t-call="website_sale.wizard_checkout">
+                                    <t t-set="step" t-value="50" />
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Contact Data</h2>
+                            <hr/>
+                        </div>
+                    </div>
+                    <form id="contact" action="#" method="POST">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="row">
+                            <div class="col-sm-6">                                
+                                <div class="form-group">                                
+                                    <label for="contact_name" class="control-label">Name</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="fa fa-user"></span></div>
+                                        <input  type="text" 
+                                                class="form-control" 
+                                                name="contact_name" 
+                                                required="true" 
+                                                placeholder="Name"  
+                                                t-att-value="partner.name if partner.exists() and not lead.exists() else (lead.contact_name if lead.exists() else '')" aria-describedby="field_contact_name_help"/>
+                                    </div>                                                                    
+                                    <small id="field_contact_name_help" class="form-text text-muted">Type your name here!</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="email_from" class="control-label">Email</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="fa fa-at"></span></div>
+                                        <input  type="email" 
+                                                class="form-control" 
+                                                name="email_from" 
+                                                required="true" 
+                                                placeholder="Email" 
+                                                t-att-value="partner.email if partner.exists() and not lead.exists() else (lead.email_from if lead.exists() else '')" 
+                                                aria-describedby="field_company_help"/>
+                                    </div>
+                                    <small id="field_email_from_help" class="form-text text-muted">Type your company's name here!</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="phone" class="control-label">Phone</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="fa fa-phone"></span></div>
+                                        <input  type="tel" 
+                                                class="form-control" 
+                                                name="phone" 
+                                                required="true" 
+                                                placeholder="Company"  
+                                                t-att-value="(partner.phone or partner.mobile) if partner.exists() and not lead.exists() else (lead.phone if lead.exists() else '')" 
+                                                aria-describedby="field_phone_help"/>
+                                    </div>
+                                    <small id="field_phone_help" class="form-text text-muted">Type your company's name here!</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="project" class="control-label">Project</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="fa fa-briefcase"></span></div>
+                                        <input  type="text" 
+                                                class="form-control"
+                                                name="project"
+                                                required="true"
+                                                placeholder="Project name (if not, please type Personal)"
+                                                t-att-value="lead.project_name if lead.exists() else ''"
+                                                aria-describedby="field_project_help"/>
+                                    </div>
+                                    <small id="field_project_help" class="form-text text-muted">Type your working project name.</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="partner_name" class="control-label">Company</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="fa fa-industry"></span></div>
+                                        <input  type="text" 
+                                                class="form-control" 
+                                                name="partner_name" 
+                                                required="true" 
+                                                placeholder="Company" 
+                                                t-att-value="partner.company_id.name if partner.exists() and not lead.exists() else (lead.partner_name if lead.exists() else '')" 
+                                                aria-describedby="field_partner_name_help"/>
+                                    </div>
+                                    <small id="field_company_help" class="form-text text-muted">Type your company's name here!</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="hidden" name="tag_ids" t-att-value="','.join(lead.tag_ids.mapped(lambda o: str(o.id))) if lead.exists() else ''"/>
+                                <div class="form-group">
+                                    <label for="tag_ids" class="control-label">Tags</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="fa fa-tags"></span></div>
+                                        <select class="form-control js_select2" name="select_tag_ids" data-tags="true" multiple="multiple">
+                                            <t t-set="ids" t-value="lead.tag_ids.mapped('id')"/>
+                                            <t t-foreach="tag_ids" t-as="tag" >
+                                                <t t-if="lead.exists() and tag.id in ids">
+                                                    <option t-att-value="tag.id" t-esc="tag.name" selected="selected"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <option t-att-value="tag.id" t-esc="tag.name" />
+                                                </t>
+                                            </t>                                            
+                                        </select>      
+                                    </div>                          
+                                    <small id="field_tag_ids_help" class="form-text text-muted">Pick company's categories here!</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="description" class="control-label">Notes</label>
+                                    <textarea   class="form-control" 
+                                                name="description" 
+                                                placeholder="NOTES" 
+                                                t-att-value="lead.description if lead.exists() else ''"
+                                                t-esc="lead.description if lead.exists() else ''" 
+                                                aria-describedby="field_description_help"/>
+                                    <small id="field_description_help" class="form-text text-muted">Type notes here!</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button type="button" href="#" class="btn btn-primary pull-right request_quotation"><span class="fa fa-check" /> Request Quotation</button>
+                                <button type="button" href="#" class="btn btn-default pull-left return_basket"><span class="fa fa-long-arrow-left" /> Back</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="quotation_success" name="Success">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure" />
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <br/>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="alert alert-success" role="alert">
+                            <h4 class="alert-heading">Well done!</h4>
+                            <p>Your quote was sent successfully one of our sellers will contact you in less than 24 hours..</p>
+                            <hr/>
+                            <a href="/" class="btn btn-success btn-lg active" role="button" aria-pressed="true"><span class="fa fa-home"></span> Return to our Site</a> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="suggested_products_list" inherit_id="website_sale.suggested_products_list">
+        <xpath expr="//table[@id='cart_products']/following-sibling::table/tbody/tr/td[hasclass('td-price')]" position="attributes">
+            <attribute name="class"/>
+            <attribute name="t-att-class">'hide-element' if is_sale_basket_crm else 'td-price'</attribute>
+        </xpath>
+
+        <xpath expr="//table[@id='cart_products']/following-sibling::table/tbody/tr/td[hasclass('td-img')]/a" position="attributes">
+            <attribute name="t-attf-href">{{'/products/product/' if is_sale_basket_crm else '/shop/product/'}}#{ slug(product.product_tmpl_id) }"</attribute>
+        </xpath>
+
+        <xpath expr="//table[@id='cart_products']/following-sibling::table/tbody/tr/td[hasclass('td-product_name')]/div/a" position="attributes">
+            <attribute name="t-attf-href">{{'/products/product/' if is_sale_basket_crm else '/shop/product/'}}#{ slug(product.product_tmpl_id) }</attribute>
+        </xpath>
+
+        <xpath expr="//table[@id='cart_products']/following-sibling::table/tbody/tr/td/input[hasclass('js_quantity')]" position="attributes">
+            <attribute name="t-att-data-is-sale-basket-crm">1 if is_sale_basket_crm else 0</attribute>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="base.mx" model="res.country">
+        <field name="vat_label">RFC</field>
+    </record>
+
+    <delete id="website_sale.menu_shop" model="website.menu"/>
+
+    <record id="categ_oppor1" model="crm.lead.tag">
+        <field name="name">ARCHITECTURE</field>
+        <field name="color" eval="1"/>
+    </record>
+    <record id="categ_oppor2" model="crm.lead.tag">
+        <field name="name">BROKER</field>
+        <field name="color" eval="2"/>
+    </record>
+    <record id="categ_oppor3" model="crm.lead.tag">
+        <field name="name">CUSTOMER</field>
+        <field name="color" eval="3"/>
+    </record>
+    <record id="categ_oppor4" model="crm.lead.tag">
+        <field name="name">BUILDING COMPANY</field>
+        <field name="color" eval="4"/>
+    </record>
+    <record id="categ_oppor5" model="crm.lead.tag">
+        <field name="name">CONSULTANT</field>
+        <field name="color" eval="5"/>
+    </record>
+    <record id="categ_oppor6" model="crm.lead.tag">
+        <field name="name">GOVERNMENT</field>
+        <field name="color" eval="6"/>
+    </record>
+    <record id="categ_oppor7" model="crm.lead.tag">
+        <field name="name">PERSONAL</field>
+        <field name="color" eval="7"/>
+    </record>
+</odoo>

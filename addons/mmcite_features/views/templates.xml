@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document_inherit_sale_inherit_mmcite_features" inherit_id="sale.report_invoice_document_inherit_sale">
+        <xpath expr="//div[@t-if='o.partner_id.vat']" position="replace">
+            <div t-if="o.partner_id.vat" class="mt16"><t t-esc="o.company_id.country_id.vat_label or 'RFC'"/>: <span t-field="o.partner_id.vat"/></div>
+        </xpath>        
+    </template>
+
+    <template id="header" inherit_id="website_sale_basket_crm.header" name="Header Products My Cart Link">
+        <xpath expr="//li[@id='my_cart']/a[@href='/shop/cart']" position="replace">
+            <a t-if="not is_sale_basket_crm" href="/products/cart">
+                <i class="fa fa-shopping-cart"></i> My Basket
+                <sup t-attf-class="my_cart_quantity label label-primary" t-esc="website_sale_order and website_sale_order.cart_quantity or ''" />
+            </a>
+        </xpath>
+    </template>
+</odoo>

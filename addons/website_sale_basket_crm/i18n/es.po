@@ -1,0 +1,284 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* website_sale_basket_crm
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-27 18:41+0000\n"
+"PO-Revision-Date: 2018-05-27 18:41+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.header
+msgid "<i class=\"fa fa-shopping-cart\"/> My Basket"
+msgstr "<i class=\"fa fa-shopping-cart\"/> Mi Carrito"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "<small id=\"field_company_help\" class=\"form-text text-muted\">Type your company's name here!</small>"
+msgstr "<small id=\"field_company_help\" class=\"form-text text-muted\">Declare el nombre de su compañia.</small>"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "<small id=\"field_contact_name_help\" class=\"form-text text-muted\">Type your name here!</small>"
+msgstr "<small id=\"field_contact_name_help\" class=\"form-text text-muted\">Declare su nombre y al menos su primer apellido.</small>"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "<small id=\"field_description_help\" class=\"form-text text-muted\">Type notes here!</small>"
+msgstr "<small id=\"field_description_help\" class=\"form-text text-muted\">Observaciones que desee hacernos llegar.</small>"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "<small id=\"field_email_from_help\" class=\"form-text text-muted\">Type your company's name here!</small>"
+msgstr "<small id=\"field_email_from_help\" class=\"form-text text-muted\">Su correo electrónico para contactarle.</small>"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "<small id=\"field_phone_help\" class=\"form-text text-muted\">Type your company's name here!</small>"
+msgstr "<small id=\"field_phone_help\" class=\"form-text text-muted\">Su número de teléfono.</small>"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "<small id=\"field_project_help\" class=\"form-text text-muted\">Type your working project name.</small>"
+msgstr "<small id=\"field_project_help\" class=\"form-text text-muted\">Proyecto en el que se encuentra trabajando.</small>"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "<small id=\"field_tag_ids_help\" class=\"form-text text-muted\">Pick company's categories here!</small>"
+msgstr "<small id=\"field_tag_ids_help\" class=\"form-text text-muted\">Categorías que describan a su empresa.</small>"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "<span class=\"fa fa-check\"/> Request Quotation"
+msgstr "<span class=\"fa fa-check\"/> Cotización"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.quotation_success
+msgid "<span class=\"fa fa-home\"/> Return to our Site"
+msgstr "<span class=\"fa fa-home\"/> Regresar al Inicio"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.continue_shopping
+msgid "<span class=\"fa fa-long-arrow-left\"/>\n"
+"                <span class=\"hidden-xs\">Continue Quotation</span>\n"
+"                <span class=\"visible-xs-inline\">Continue</span>"
+msgstr "<span class=\"fa fa-long-arrow-left\"/>\n"
+"                <span class=\"hidden-xs\">Continuar Cotizando</span>\n"
+"                <span class=\"visible-xs-inline\">Continuar</span>"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "<span class=\"fa fa-long-arrow-left\"/> Back"
+msgstr "<span class=\"fa fa-long-arrow-left\"/> Atrás"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.continue_shopping
+msgid "<span class=\"hidden-xs\">Record Quotation</span>\n"
+"                <span class=\"visible-xs-inline\">Next</span>\n"
+"                <span class=\"fa fa-long-arrow-right\"/>"
+msgstr "<span class=\"hidden-xs\"> Enviar Cotización </span>\n"
+"                <span class=\"visible-xs-inline\">Enviar</span>\n"
+"                <span class=\"fa fa-long-arrow-right\"/>"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.modal
+msgid "<span class=\"visible-xs-inline\">Continue</span>"
+msgstr "<span class=\"visible-xs-inline\">Continuar</span>"
+
+#. module: website_sale_basket_crm
+#. openerp-web
+#: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:274
+#, python-format
+msgid "A phone number is required!"
+msgstr "¡Campo requerido!"
+
+#. module: website_sale_basket_crm
+#. openerp-web
+#: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:268
+#, python-format
+msgid "An email to contact is required!"
+msgstr "¡Un correo válido requerido!"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "Company"
+msgstr "Compañía"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "Contact Data"
+msgstr "Datos para el contacto"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "Email"
+msgstr "Correo electrónico"
+
+#. module: website_sale_basket_crm
+#. openerp-web
+#: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:19
+#, python-format
+msgid "My Cart"
+msgstr "Mi Carrito"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "NOTES"
+msgstr "Notas"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "Name"
+msgstr "Nombre"
+
+#. module: website_sale_basket_crm
+#: code:addons/website_sale_basket_crm/controllers/main.py:462
+#, python-format
+msgid "New Quotation by %s"
+msgstr "Nueva cotización solicitada por %s"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "Notes"
+msgstr "Notas"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "Phone"
+msgstr "Teléfono"
+
+#. module: website_sale_basket_crm
+#. openerp-web
+#: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:264
+#, python-format
+msgid "Please at least name and surename."
+msgstr "Se requiere nombre y un apellido."
+
+#. module: website_sale_basket_crm
+#. openerp-web
+#: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:270
+#, python-format
+msgid "Please enter a valid email address."
+msgstr "¡El correo intruducido no es válido!"
+
+#. module: website_sale_basket_crm
+#: model:ir.model,name:website_sale_basket_crm.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.breadcrumb
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.categories_navigation
+#: model:website.menu,name:website_sale_basket_crm.menu_products_shop
+msgid "Products"
+msgstr "Productos"
+
+#. module: website_sale_basket_crm
+#: model:ir.model.fields,help:website_sale_basket_crm.field_product_product_related_product_ids
+#: model:ir.model.fields,help:website_sale_basket_crm.field_product_template_related_product_ids
+msgid "Products related to other products."
+msgstr "Productos relacionados con este y que también serán promocionados."
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: website_sale_basket_crm
+#. openerp-web
+#: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:286
+#, python-format
+msgid "Project field required!"
+msgstr "¡Campo requerido!"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "Project name (if not, please type Personal)"
+msgstr "Nombre del proyecto (si no procede ponga PERSONAL)"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.cart_popover
+msgid "Qty:"
+msgstr "Cantidad:"
+
+#. module: website_sale_basket_crm
+#: model:ir.model.fields,field_description:website_sale_basket_crm.field_product_product_related_product_ids
+#: model:ir.model.fields,field_description:website_sale_basket_crm.field_product_template_related_product_ids
+msgid "Related Products"
+msgstr "Productos Relacionados"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.related_products
+msgid "Related Products:"
+msgstr "Productos Relacionados:"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.404
+msgid "Return to the product list."
+msgstr "Volver a la lista de producto."
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "Tags"
+msgstr "Etiquetas"
+
+#. module: website_sale_basket_crm
+#. openerp-web
+#: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:283
+#, python-format
+msgid "Tags field required!"
+msgstr "¡Campo requerido!"
+
+#. module: website_sale_basket_crm
+#: code:addons/website_sale_basket_crm/controllers/main.py:462
+#, python-format
+msgid "Unknown..."
+msgstr "Desconocido..."
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.product
+msgid "Variant List"
+msgstr "Lista de Opciones"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.cart_popover
+msgid "View Basket ("
+msgstr "Ver Carrito de Cotización ("
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.quotation_success
+msgid "Well done!"
+msgstr "¡Felicidades!"
+
+#. module: website_sale_basket_crm
+#. openerp-web
+#: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:280
+#, python-format
+msgid "Your company are required!"
+msgstr "¡Campo requerido!"
+
+#. module: website_sale_basket_crm
+#. openerp-web
+#: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:262
+#, python-format
+msgid "Your name are required!"
+msgstr "¡Campo requerido!"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.quotation_success
+msgid "Your quote was sent successfully one of our sellers will contact you in less than 24 hours.."
+msgstr "Gracias por elegirnos, su cotización nos ha llegado satisfactoriamente y uno de nuestros comerciales le contactará en las próximas 24 horas."
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.cart_popover
+msgid "items)"
+msgstr "elementos)"
+

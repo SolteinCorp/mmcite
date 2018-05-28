@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Inherit Form view -->
+	<record id="crm_case_form_view_oppor" model="ir.ui.view">
+		<field name="name">crm.case.form.view.oppor.inherit.mmcite.features</field>
+		<field name="model">crm.lead</field>
+		<field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='tag_ids']" position="after">
+				<field name="project_name" />					
+			</xpath>
+		</field>
+	</record>
+</odoo>

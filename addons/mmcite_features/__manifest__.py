@@ -26,6 +26,7 @@
 
     'data': [
         'data/data.xml',
+        'security/user_groups.xml',
         'report/sale_report_template.xml',
         'views/crm_lead_views.xml',
         'views/templates.xml',

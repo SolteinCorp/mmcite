@@ -185,10 +185,12 @@
             <attribute name="t-attf-class">{{ 'col-sm-3 mb8 hide-element' if is_sale_basket_crm else 'col-sm-3 mb8'}}</attribute>
         </xpath>
         <!-- Remove prices references (see product_price -template-)-->
+        <!--
         <xpath expr="//section[@id='product_detail']/div/div[t[@t-call='website_sale.pricelist_list']]" position="attributes">
             <attribute name="class" />
             <attribute name="t-attf-class">{{ 'col-sm-2 text-right hide-element' if is_sale_basket_crm else 'col-sm-2 text-right'}}</attribute>
         </xpath>
+        -->
         <!-- Rename basket button -->
         <xpath expr="//a[@id='add_to_cart']" position="replace">
             <a id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product a-submit" t-att-data-is-sale-basket-crm="1 if is_sale_basket_crm else 0" href="#">

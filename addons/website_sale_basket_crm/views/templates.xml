@@ -396,16 +396,21 @@
 
     <!-- Modify Cart Page -->
     <template id="wizard_checkout" inherit_id="website_sale.wizard_checkout">
-        <!-- First step changes -->
-        <xpath expr="//ul/li[@id='step10']/a" position="attributes">
-            <attribute name="t-att-href">step_review_order and ('/products/cart' if is_sale_basket_crm else '/shop/cart') or '#'</attribute>
-        </xpath>
-        <xpath expr="//ul/li[@id='step10']/a/span" position="replace">
+        <!-- First step changes -->        
+        <xpath expr="//ul/li[@id='step10']/a" position="replace">
             <!-- 
             TODO: Problemas con la internalización i18n
             <span t-raw="_('Review Quotation') if is_sale_basket_crm else 'Review Order'"/>
             -->
-            <span t-raw="'Revisar Cotización' if is_sale_basket_crm else 'Review Order'"/>
+            <a t-att-href="step_review_order and '/shop/cart' or '#'" t-att-class="step_review_order and 'text-success' or 'o_link_disable'">
+                <span t-raw="'Revisar Cotización' if is_sale_basket_crm else 'Review Order'"/>
+            </a>
+            <!--
+                <span t-raw="'Revisar Cotización' if is_sale_basket_crm else 'Review Order'"/>
+            -->
+        </xpath>
+        <xpath expr="//ul/li[@id='step10']/a" position="attributes">
+            <attribute name="t-att-href">step_review_order and ('/products/cart' if is_sale_basket_crm else '/shop/cart') or '#'</attribute>
         </xpath>
         <!-- Second step changes -->
         <xpath expr="//ul/li[@id='step20']" position="attributes">

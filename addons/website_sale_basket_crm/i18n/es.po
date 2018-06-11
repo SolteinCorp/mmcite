@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-27 18:41+0000\n"
-"PO-Revision-Date: 2018-05-27 18:41+0000\n"
+"POT-Creation-Date: 2018-06-11 15:00+0000\n"
+"PO-Revision-Date: 2018-06-11 15:00+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,11 @@ msgstr ""
 #: model:ir.ui.view,arch_db:website_sale_basket_crm.header
 msgid "<i class=\"fa fa-shopping-cart\"/> My Basket"
 msgstr "<i class=\"fa fa-shopping-cart\"/> Mi Carrito"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "<small id=\"field_city_help\" class=\"form-text text-muted\">Type your city name.</small>"
+msgstr "<small id=\"field_city_help\" class=\"form-text text-muted\">Nombre de la ciudad a la que pertenece.</small>"
 
 #. module: website_sale_basket_crm
 #: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
@@ -94,18 +99,14 @@ msgid "<span class=\"visible-xs-inline\">Continue</span>"
 msgstr "<span class=\"visible-xs-inline\">Continuar</span>"
 
 #. module: website_sale_basket_crm
-#. openerp-web
-#: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:274
-#, python-format
-msgid "A phone number is required!"
-msgstr "¡Campo requerido!"
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "City name"
+msgstr "Ciudad"
 
 #. module: website_sale_basket_crm
-#. openerp-web
-#: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:268
-#, python-format
-msgid "An email to contact is required!"
-msgstr "¡Un correo válido requerido!"
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "City name for quotation."
+msgstr "Nombre de la ciudad."
 
 #. module: website_sale_basket_crm
 #: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
@@ -123,6 +124,16 @@ msgid "Email"
 msgstr "Correo electrónico"
 
 #. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "Email <span class=\"text-danger\">*</span>"
+msgstr "Email <span class=\"text-danger\">*</span>"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "I accept"
+msgstr "He leido y acepto"
+
+#. module: website_sale_basket_crm
 #. openerp-web
 #: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:19
 #, python-format
@@ -132,7 +143,7 @@ msgstr "Mi Carrito"
 #. module: website_sale_basket_crm
 #: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
 msgid "NOTES"
-msgstr "Notas"
+msgstr "Mensaje: sus necesidades, intenciones, preocupaciones. !Podemos ayudarle¡"
 
 #. module: website_sale_basket_crm
 #: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
@@ -140,34 +151,25 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: website_sale_basket_crm
-#: code:addons/website_sale_basket_crm/controllers/main.py:462
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "Name <span class=\"text-danger\">*</span>"
+msgstr "Nombre y apellidos <span class=\"text-danger\">*</span>"
+
+#. module: website_sale_basket_crm
+#: code:addons/website_sale_basket_crm/controllers/main.py:444
 #, python-format
 msgid "New Quotation by %s"
 msgstr "Nueva cotización solicitada por %s"
 
 #. module: website_sale_basket_crm
 #: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
-msgid "Notes"
-msgstr "Notas"
+msgid "Notes <span class=\"text-danger\">*</span>"
+msgstr "Mensaje <span class=\"text-danger\">*</span>"
 
 #. module: website_sale_basket_crm
 #: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
 msgid "Phone"
 msgstr "Teléfono"
-
-#. module: website_sale_basket_crm
-#. openerp-web
-#: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:264
-#, python-format
-msgid "Please at least name and surename."
-msgstr "Se requiere nombre y un apellido."
-
-#. module: website_sale_basket_crm
-#. openerp-web
-#: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:270
-#, python-format
-msgid "Please enter a valid email address."
-msgstr "¡El correo intruducido no es válido!"
 
 #. module: website_sale_basket_crm
 #: model:ir.model,name:website_sale_basket_crm.model_product_template
@@ -191,13 +193,6 @@ msgstr "Productos relacionados con este y que también serán promocionados."
 #: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
 msgid "Project"
 msgstr "Proyecto"
-
-#. module: website_sale_basket_crm
-#. openerp-web
-#: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:286
-#, python-format
-msgid "Project field required!"
-msgstr "¡Campo requerido!"
 
 #. module: website_sale_basket_crm
 #: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
@@ -228,17 +223,10 @@ msgstr "Volver a la lista de producto."
 #. module: website_sale_basket_crm
 #: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
 msgid "Tags"
-msgstr "Etiquetas"
+msgstr "Giro de la compañia"
 
 #. module: website_sale_basket_crm
-#. openerp-web
-#: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:283
-#, python-format
-msgid "Tags field required!"
-msgstr "¡Campo requerido!"
-
-#. module: website_sale_basket_crm
-#: code:addons/website_sale_basket_crm/controllers/main.py:462
+#: code:addons/website_sale_basket_crm/controllers/main.py:444
 #, python-format
 msgid "Unknown..."
 msgstr "Desconocido..."
@@ -259,20 +247,6 @@ msgid "Well done!"
 msgstr "¡Felicidades!"
 
 #. module: website_sale_basket_crm
-#. openerp-web
-#: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:280
-#, python-format
-msgid "Your company are required!"
-msgstr "¡Campo requerido!"
-
-#. module: website_sale_basket_crm
-#. openerp-web
-#: code:addons/website_sale_basket_crm/static/src/js/website_sale_basket_crm.js:262
-#, python-format
-msgid "Your name are required!"
-msgstr "¡Campo requerido!"
-
-#. module: website_sale_basket_crm
 #: model:ir.ui.view,arch_db:website_sale_basket_crm.quotation_success
 msgid "Your quote was sent successfully one of our sellers will contact you in less than 24 hours.."
 msgstr "Gracias por elegirnos, su cotización nos ha llegado satisfactoriamente y uno de nuestros comerciales le contactará en las próximas 24 horas."
@@ -281,4 +255,9 @@ msgstr "Gracias por elegirnos, su cotización nos ha llegado satisfactoriamente 
 #: model:ir.ui.view,arch_db:website_sale_basket_crm.cart_popover
 msgid "items)"
 msgstr "elementos)"
+
+#. module: website_sale_basket_crm
+#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
+msgid "privacy term"
+msgstr "los términos del Aviso de Privacidad"
 

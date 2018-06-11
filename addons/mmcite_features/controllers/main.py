@@ -2,13 +2,15 @@
 from werkzeug.exceptions import NotFound
 
 from odoo import http
+from odoo.http import request
 from odoo.addons.website_sale_basket_crm.controllers.main import WebsiteSaleBasketCrm
 
 class MMCITEFeatures(WebsiteSaleBasketCrm):
     def get_quotation_form_values(self, **kwargs):
         values = super(MMCITEFeatures, self).get_quotation_form_values(**kwargs)
         values.update({
-            'project_name': kwargs.get('project', "")
+            'project_name': kwargs.get('project', ""),
+            'lead_city_name': kwargs.get('lead_city_name', "")
         })
         return values
 
@@ -66,3 +68,7 @@ class MMCITEFeatures(WebsiteSaleBasketCrm):
 
     def payment_confirmation(self, **post):
         raise NotFound()
+
+    @http.route(['/aviso-de-privacidad'], type='http', auth="public", methods=['GET'], website=True, multilang=True)
+    def privacy_terms(self, **kwargs):
+        return request.render("mmcite_features.privacy_terms", {})

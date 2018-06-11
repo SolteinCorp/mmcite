@@ -34,4 +34,6 @@
         <field name="name">PERSONAL</field>
         <field name="color" eval="7"/>
     </record>
+
+    <function name="set_external_report_layout" model="res.company" />
 </odoo>

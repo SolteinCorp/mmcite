@@ -9,3 +9,8 @@ class CrmLead(models.Model):
     project_name = fields.Char(
         help="The project name for current opportunity. Use in negotiation process."
     )
+
+    lead_city_name = fields.Char(
+        string="City Name",
+        help="Oportunity city name."
+    )

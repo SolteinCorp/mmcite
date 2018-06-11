@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-27 16:47+0000\n"
-"PO-Revision-Date: 2018-05-27 16:47+0000\n"
+"POT-Creation-Date: 2018-06-11 15:09+0000\n"
+"PO-Revision-Date: 2018-06-11 15:09+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,36 +16,9 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: mmcite_features
-#: model:ir.model,name:mmcite_features.model_crm_lead
-msgid "Lead/Opportunity"
-msgstr "Iniciativa/Oportunidad"
-
-#. module: mmcite_features
-#: model:ir.model.fields,field_description:mmcite_features.field_crm_lead_project_name
-msgid "Project Name"
-msgstr "Nombre del Proyecto"
-
-#. module: mmcite_features
-#: model:ir.model.fields,help:mmcite_features.field_crm_lead_project_name
-msgid "The project name for current opportunity. Use in negotiation process."
-msgstr "Nombre del Proyecto sobre el que se realiza esta oportunidad. Téngase en cuenta en el proceso de negociación."
-
-#. module: base
-#: model:ir.model.fields,field_description:base.field_res_company_vat
-#: model:ir.model.fields,field_description:base.field_res_partner_vat
-#: model:ir.model.fields,field_description:base.field_res_users_vat
-msgid "TIN"
-msgstr "RFC"
-
-#. module: mmcite_features
 #: model:ir.ui.view,arch_db:mmcite_features.header
 msgid "<i class=\"fa fa-shopping-cart\"/> My Basket"
 msgstr "<i class=\"fa fa-shopping-cart\"/> Mi Carrito"
-
-#. module: website_sale_basket_crm
-#: model:ir.ui.view,arch_db:website_sale_basket_crm.partner
-msgid "Tags"
-msgstr "Orientación de su Empresa"
 
 #. module: mmcite_features
 #: model:crm.lead.tag,name:mmcite_features.categ_oppor1
@@ -73,16 +46,42 @@ msgid "CUSTOMER"
 msgstr "CLIENTE FINAL"
 
 #. module: mmcite_features
+#: model:ir.model.fields,field_description:mmcite_features.field_crm_lead_lead_city_name
+msgid "City Name"
+msgstr "Ciudad"
+
+#. module: mmcite_features
 #: model:crm.lead.tag,name:mmcite_features.categ_oppor6
 msgid "GOVERNMENT"
 msgstr "GOBIERNO"
+
+#. module: mmcite_features
+#: model:ir.model,name:mmcite_features.model_crm_lead
+msgid "Lead/Opportunity"
+msgstr "Iniciativa/Oportunidad"
+
+#. module: mmcite_features
+#: model:ir.model.fields,help:mmcite_features.field_crm_lead_lead_city_name
+msgid "Oportunity city name."
+msgstr "Nombre de la ciudad."
 
 #. module: mmcite_features
 #: model:crm.lead.tag,name:mmcite_features.categ_oppor7
 msgid "PERSONAL"
 msgstr "PERSONAL"
 
-#. module: website_sale
-#: model:ir.ui.view,arch_db:website_sale.cart
-msgid "Shopping Cart"
-msgstr "Mi Carrito"
+#. module: mmcite_features
+#: model:ir.model.fields,field_description:mmcite_features.field_crm_lead_project_name
+msgid "Project Name"
+msgstr "Nombre del Proyecto"
+
+#. module: mmcite_features
+#: model:ir.model,name:mmcite_features.model_sale_order
+msgid "Quotation"
+msgstr "Cotización"
+
+#. module: mmcite_features
+#: model:ir.model.fields,help:mmcite_features.field_crm_lead_project_name
+msgid "The project name for current opportunity. Use in negotiation process."
+msgstr "Nombre del Proyecto sobre el que se realiza esta oportunidad. Téngase en cuenta en el proceso de negociación."
+

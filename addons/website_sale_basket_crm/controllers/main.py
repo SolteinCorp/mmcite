@@ -436,6 +436,13 @@ class WebsiteSaleBasketCrm(WebsiteSale):
         
         return request.render('website_sale_basket_crm.partner', values)
 
+    def get_tags_form_values(self, **kwargs):
+        if kwargs.get('tag_ids', "").strip():
+            tags = kwargs.get('tag_ids', "").strip().split(',')
+            if tags[0]:
+                return [(6, None, map(int, tags))]
+        return []
+
     def get_quotation_form_values(self, **kwargs):
         order = request.website.sale_get_order()
         values = {
@@ -447,11 +454,21 @@ class WebsiteSaleBasketCrm(WebsiteSale):
             'partner_name': kwargs.get('partner_name'),
             'description': kwargs.get('description'),
             'planned_revenue': order.amount_total,
-            'order_ids': [(6, None, [order.id])],
-            'tag_ids': [(6, None, [int(tag) for tag in kwargs.get('tag_ids', []).split(',')])],
-            'team_id': request.env.ref('sales_team.salesteam_website_sales').id,
-            'medium_id': request.env.ref('utm.utm_medium_website').id
+            'order_ids': [(6, None, [order.id])] if order.exists() else [],
+            'team_id': request.env.ref('sales_team.salesteam_website_sales').id or False,
+            'medium_id': request.env.ref('utm.utm_medium_website').id or False,
+            'tag_ids': self.get_tags_form_values(**kwargs)
         }
+        # if kwargs.get('tag_ids', "").strip():
+        #     tags = kwargs.get('tag_ids', "").strip().split(',')
+        #     if tags[0]:
+        #         ids = []
+        #         for tag in tags:
+        #             try: 
+        #                 ids.append(int(tag))
+        #             except ValueError:
+        #                 pass                    
+        #         values['tag_ids'] = [(6, None, ids)]
         return values
 
     @http.route(['/products/quotation'], type="http", method=['POST'], auth="public", website=True, multilang=True)
@@ -474,7 +491,7 @@ class WebsiteSaleBasketCrm(WebsiteSale):
             lead = request.env['crm.lead'].sudo().create(values)
             order.write({
                 'opportunity_id': lead.id,
-                'tag_ids': [(6, None, map(int, kwargs.get('tag_ids', []).split(',')))],
+                'tag_ids': self.get_tags_form_values(**kwargs),
                 'team_id': request.env.ref('sales_team.salesteam_website_sales').id,
                 'medium_id': request.env.ref('utm.utm_medium_website').id
             })

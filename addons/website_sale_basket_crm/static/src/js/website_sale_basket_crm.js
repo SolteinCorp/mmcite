@@ -196,10 +196,12 @@ odoo.define('website_sale_basket_crm.website_sale', function(require) {
                   var $q = $(".my_cart_quantity");
                   if (data.cart_quantity) {
                       $q.parents('li:first').removeClass("hidden");
+                      $('#get_partner_data').show();
                   }
                   else {
                       $q.parents('li:first').addClass("hidden");
                       $('a[href*="/shop/checkout"]').addClass("hidden");
+                      $('#get_partner_data').hide();
                   }
   
                   $q.html(data.cart_quantity).hide().fadeIn(600);
@@ -248,13 +250,9 @@ odoo.define('website_sale_basket_crm.website_sale', function(require) {
             email_from: {
                 required: true
             },
-            phone: {    
-                required: true, 
-                //mobileMX: true
-            },
-            partner_name: {required: true},
-            select_tag_ids: {required: true},
-            project: {required: true}
+            description:  {
+                required: true,
+            }            
         },
         messages: {
             // TODO: Problema no identificado con la internalización de los mensajes
@@ -270,24 +268,9 @@ odoo.define('website_sale_basket_crm.website_sale', function(require) {
                 //email: _lt("Please enter a valid email address."),
                 email: "¡Se requiere una dirección de correo válida!"
             },
-            phone: {
-                //required: _lt("A phone number is required!"),
-                required: "¡El número de teléfono es requerido!",
-                //mobileMX: _t("Enter a valid phone number")
-            },
-            partner_name: {
-                // required: _t("Your company are required!")
-                // required: _lt("Your company are required!")
-                required: "Este campo es requerido."
-            },
-            select_tag_ids: {
-                //required: _lt("Tags field required!")
-                required: "Este campo es requerido."
-            },
-            project: {
-                // required: _lt("Project field required!")
-                required: "Este campo es requerido."
-            }
+            description: {
+                required: "¡Su mensaje es requerido, por favor cuéntenos sus motivos y necesidades!",
+            }             
         },
         errorElement: 'small',
         errorPlacement: function (error, element) {
@@ -345,6 +328,11 @@ odoo.define('website_sale_basket_crm.website_sale', function(require) {
                 }
             });
         }              
+    });
+
+    $('#privacy_check').change(function(e){
+        var check = $(this),
+            send_quotation = $('#send_quotation').prop('disabled', !check.prop('checked'));
     });
 });
 

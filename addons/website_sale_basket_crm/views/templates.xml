@@ -305,6 +305,11 @@
         <!-- Enable use List View of Variants-->
     </record>
 
+    <record id="website_sale.product_quantity" model="ir.ui.view">
+        <field name="active" eval="False"/>
+        <!-- Disable spinner -->
+    </record>
+
     <template id="variants" inherit_id="website_sale.variants">
         <!-- Hide prices in variant list -->
         <xpath expr="//option[@t-att-value='value_id.id']/span[@t-if='value_id.price_extra']" position="attributes">

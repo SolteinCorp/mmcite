@@ -14,4 +14,20 @@
             </a>
         </xpath>
     </template>
+
+    <template id="privacy_terms" name="Partner">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure oe_empty">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1>Aviso de privacidad</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
 </odoo>

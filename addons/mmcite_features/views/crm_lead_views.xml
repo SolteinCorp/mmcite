@@ -8,6 +8,7 @@
 		<field name="arch" type="xml">
 			<xpath expr="//field[@name='tag_ids']" position="after">
 				<field name="project_name" />					
+				<field name="lead_city_name" />					
 			</xpath>
 		</field>
 	</record>

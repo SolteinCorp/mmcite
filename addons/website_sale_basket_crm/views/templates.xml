@@ -491,7 +491,7 @@
             </a>
         </xpath>
         <xpath expr="//a[@href='/products']" position="after">
-            <a t-if="not optional_products and website_sale_order and website_sale_order.website_order_line" class="btn btn-primary pull-right mb32 mr8" href="/products/partner">
+            <a id="get_partner_data" t-if="not optional_products and website_sale_order and website_sale_order.website_order_line" class="btn btn-primary pull-right mb32 mr8" href="/products/partner">
                 <span class="hidden-xs">Record Quotation</span>
                 <span class="visible-xs-inline">Next</span>
                 <span class="fa fa-long-arrow-right" />
@@ -523,7 +523,7 @@
                         <div class="row">
                             <div class="col-sm-6">                                
                                 <div class="form-group">                                
-                                    <label for="contact_name" class="control-label">Name</label>
+                                    <label for="contact_name" class="control-label">Name <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><span class="fa fa-user"></span></div>
                                         <input  type="text" 
@@ -538,7 +538,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label for="email_from" class="control-label">Email</label>
+                                    <label for="email_from" class="control-label">Email <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-addon"><span class="fa fa-at"></span></div>
                                         <input  type="email" 
@@ -562,7 +562,6 @@
                                         <input  type="tel" 
                                                 class="form-control" 
                                                 name="phone" 
-                                                required="true" 
                                                 placeholder="Company"  
                                                 t-att-value="(partner.phone or partner.mobile) if partner.exists() and not lead.exists() else (lead.phone if lead.exists() else '')" 
                                                 aria-describedby="field_phone_help"/>
@@ -578,7 +577,6 @@
                                         <input  type="text" 
                                                 class="form-control"
                                                 name="project"
-                                                required="true"
                                                 placeholder="Project name (if not, please type Personal)"
                                                 t-att-value="lead.project_name if lead.exists() else ''"
                                                 aria-describedby="field_project_help"/>
@@ -596,7 +594,6 @@
                                         <input  type="text" 
                                                 class="form-control" 
                                                 name="partner_name" 
-                                                required="true" 
                                                 placeholder="Company" 
                                                 t-att-value="partner.company_id.name if partner.exists() and not lead.exists() else (lead.partner_name if lead.exists() else '')" 
                                                 aria-describedby="field_partner_name_help"/>
@@ -627,12 +624,34 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-sm-6">
+                                 <div class="form-group">
+                                    <label for="lead_city_name" class="control-label">City name</label>
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="fa fa-map-marker"></span></div>
+                                        <input  type="text" 
+                                                class="form-control"
+                                                name="lead_city_name"
+                                                placeholder="City name for quotation."
+                                                t-att-value="lead.lead_city_name if lead.exists() else ''"
+                                                aria-describedby="field_city_help"/>
+                                    </div>
+                                    <small id="field_city_help" class="form-text text-muted">Type your city name.</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="clearfix"/>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label for="description" class="control-label">Notes</label>
+                                    <label for="description" class="control-label">Notes <span class="text-danger">*</span></label>
                                     <textarea   class="form-control" 
                                                 name="description" 
                                                 placeholder="NOTES" 
+                                                rows="6"
+                                                required="true" 
                                                 t-att-value="lead.description if lead.exists() else ''"
                                                 t-esc="lead.description if lead.exists() else ''" 
                                                 aria-describedby="field_description_help"/>
@@ -642,7 +661,18 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
-                                <button type="button" href="#" class="btn btn-primary pull-right request_quotation"><span class="fa fa-check" /> Request Quotation</button>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" id="privacy_check"/> I accept <a href="/aviso-de-privacidad">privacy term</a>. <span class="text-danger">*</span> 
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button id="send_quotation" disabled="true" type="button" href="#" class="btn btn-primary pull-right request_quotation"><span class="fa fa-check" /> Request Quotation</button>
                                 <button type="button" href="#" class="btn btn-default pull-left return_basket"><span class="fa fa-long-arrow-left" /> Back</button>
                             </div>
                         </div>

@@ -6,7 +6,7 @@
         </xpath>
         <xpath expr="//t[@t-foreach='doc.order_lines_layouted()']/table/tbody/t[@t-foreach='page']/t[@t-as='l']/tr/td[1]" position="replace">
             <td>
-                <strong><span t-field="l.product_id.name"/></strong> <em>[<span t-field="l.product_id.code"/>]</em><br/>
+                <strong><span t-field="l.product_id.name"/></strong><br/><em>[<span t-field="l.product_id.code"/>]</em><br/>
                 <span t-field="l.product_id.description_sale"/>
             </td>
         </xpath>

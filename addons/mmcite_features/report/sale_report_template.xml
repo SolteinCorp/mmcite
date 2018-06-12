@@ -11,7 +11,7 @@
             </td>
         </xpath>
         <xpath expr="//t[@t-foreach='doc.order_lines_layouted()']/table/tbody/t[@t-foreach='page']/t[@t-as='l']/tr/td[1]" position="before">
-            <td><div t-field="l.product_id.image_medium" t-options='{"widget": "image"}'/></td>
+            <td style="width:200px !important;height:150px !important;"><div style="width:200px !important;height:150px !important;" t-field="l.product_id.image_medium" t-options='{"widget": "image", "width": 200}'/></td>
         </xpath>
     </template>
 </odoo>

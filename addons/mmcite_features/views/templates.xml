@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <template id="assets_frontend" inherit_id="web.assets_frontend" name="MMCITE Assets">
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/less" href="/mmcite_features/static/src/less/navbar.less"/>
+        </xpath>
+    </template>
+
     <template id="report_invoice_document_inherit_sale_inherit_mmcite_features" inherit_id="sale.report_invoice_document_inherit_sale">
         <xpath expr="//div[@t-if='o.partner_id.vat']" position="replace">
             <div t-if="o.partner_id.vat" class="mt16"><t t-esc="o.company_id.country_id.vat_label or 'RFC'"/>: <span t-field="o.partner_id.vat"/></div>
